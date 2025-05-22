@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Hava Durumu</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header text-white text-center py-4">
+        <div class="container">
+            <h1 class="display-4"><i class="fas fa-cloud-sun-rain mr-2"></i>Hava Durumu</h1>
+        </div>
+    </header>
+
+    <main class="container mt-4 mb-5">
+        <section id="search-section" class="mb-4 p-4 rounded shadow-sm">
+            <div class="form-row align-items-center">
+                <div class="col-md-6 mb-2 mb-md-0">
+                    <label for="citySelect" class="sr-only">Şehir Seçin</label>
+                    <select id="citySelect" class="form-control custom-select">
+                        <option value="Karabük" selected>Karabük</option>
+                        <option value="İstanbul">İstanbul</option>
+                        <option value="Ankara">Ankara</option>
+                        <option value="İzmir">İzmir</option>
+                        <option value="Bursa">Bursa</option>
+                        <option value="Antalya">Antalya</option>
+                        <option value="Adana">Adana</option>
+                        <option value="Konya">Konya</option>
+                        <option value="Gaziantep">Gaziantep</option>
+                        <option value="Şanlıurfa">Şanlıurfa</option>
+                        <option value="Kocaeli">Kocaeli</option>
+                        <option value="Mersin">Mersin</option>
+                        <option value="Diyarbakır">Diyarbakır</option>
+                        <option value="Kayseri">Kayseri</option>
+                        <option value="Samsun">Samsun</option>
+                        <option value="Denizli">Denizli</option>
+                        <option value="Eskişehir">Eskişehir</option>
+                        <option value="Trabzon">Trabzon</option>
+                        <option value="Erzurum">Erzurum</option>
+                        <option value="Zonguldak">Zonguldak</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-2 mb-md-0">
+                    <button id="searchButton" class="btn btn-primary btn-block" type="button" aria-label="Seçili şehir için hava durumunu göster">
+                        <i class="fas fa-search"></i> Göster
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button id="currentLocationButton" class="btn btn-outline-secondary btn-block" type="button" aria-label="Mevcut konumumun hava durumunu göster">
+                        <i class="fas fa-map-marker-alt"></i> Konumum
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div id="loading" class="text-center my-5" style="display: none;">
+            <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Yükleniyor...</span>
+            </div>
+            <p class="mt-2 text-muted-light">Hava durumu verileri yükleniyor...</p>
+        </div>
+
+        <div id="error-message" class="alert alert-danger" role="alert" style="display: none;">
+           
+        </div>
+
+        <section id="weather-display" style="display: none;">
+            
+            <div id="current-weather" class="card mb-4 shadow-lg current-weather-card">
+                <div class="card-header current-weather-header text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 id="cityName" class="h3 mb-0 font-weight-light"></h2>
+                        <p id="currentDate" class="mb-0 small"></p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 text-center mb-3 mb-lg-0">
+                            <img id="weatherIcon" src="" alt="Hava durumu ikonu" class="weather-icon-big img-fluid">
+                            <p id="weatherDescription" class="lead mb-0 mt-2 font-weight-bold"></p>
+                        </div>
+                        <div class="col-lg-3 text-center text-lg-left mb-3 mb-lg-0">
+                            <p class="display-3 temperature-main" id="temperature"></p>
+                            <p id="feelsLike" class="text-muted"></p>
+                        </div>
+                        <div class="col-lg-5">
+                            <ul class="list-group list-group-flush weather-details">
+                                <li id="humidity" class="list-group-item"></li>
+                                <li id="windSpeed" class="list-group-item"></li>
+                                <li id="pressure" class="list-group-item"></li>
+                                <li id="visibility" class="list-group-item"></li>
+                                <li id="sunrise" class="list-group-item"></li>
+                                <li id="sunset" class="list-group-item"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div id="forecast-weather" class="mb-4">
+                <h3 class="text-center mb-4 forecast-title">Önümüzdeki 5 Gün</h3>
+                <div id="forecast-cards" class="row">
+                    
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer-bottom text-center py-3 mt-auto">
+        <p class="mb-0">© <span id="currentYear"></span> Hava Durumu Uygulaması. <a href="https://github.com/YOUR_USERNAME/hava-durumu-uygulamasi" target="_blank" rel="noopener noreferrer">GitHub'da Görüntüle</a></p>
+    </footer>
+
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
